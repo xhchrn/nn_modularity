@@ -1,0 +1,39 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[packages]
+awscli = "<2.0"
+numpy = "==1.16.4" # "*"
+jupyter = "==1.0.0" #"*"
+ipdb = "*"
+tensorflow-datasets = "==1.0.2" # "*"
+sacred = "==0.7.5" # "*"
+pymongo = "*"
+scipy = "==1.2.1"
+scikit-learn = "==0.20.2"
+pyamg = "==4.0.0" # "*"
+networkx = "*"
+matplotlib = "*"
+pandas = "==0.24.2" # "*"
+scikit-image = "==0.15.0" # "*"
+pathos = "*"
+plac = "*"
+seaborn = "*"
+mlxtend = "==0.16.0" # "*"
+tqdm = "*"
+tensorflow = {version = "==1.14.0",sys_platform = "== 'darwin'"}
+tensorflow-gpu = {version = "==1.14.0",sys_platform = "== 'linux'"}
+tensorboard = "*" # "*"
+tensorflow-model-optimization = "==0.1.1" # "*"
+pygraphviz = {sys_platform = "== 'linux'"}
+papermill = "*"
+openpyxl = "*"
+
+[requires]
+python_version = "3.7"
+
+[dev-packages]
+pytest = "*"
+memory-profiler = "*"
