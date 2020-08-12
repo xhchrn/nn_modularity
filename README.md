@@ -1,4 +1,4 @@
-# Neural Networks are Surprisingly Modular
+# Pruned Neural Networks are Surprisingly Modular
 
 ## Results
 
