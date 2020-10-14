@@ -284,7 +284,7 @@ def get_two_model_paths(model_dir_path, dataset_name, network_type):
 @ex.capture
 def get_init_model_path(model_dir_path, dataset_name, network_type):
     directory = f'{dataset_name}-{network_type}-'
-    return model_dir_path / (directory + 'init'),
+    return model_dir_path / (directory + 'init')
 
 @ex.capture
 def get_pruned_model_paths(model_dir_path, dataset_name, network_type, num_iters):
