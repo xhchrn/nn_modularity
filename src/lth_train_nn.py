@@ -282,6 +282,11 @@ def get_two_model_paths(model_dir_path, dataset_name, network_type):
             model_dir_path / (directory + 'pruned'))
 
 @ex.capture
+def get_init_model_path(model_dir_path, dataset_name, network_type):
+    directory = f'{dataset_name}-{network_type}-'
+    return model_dir_path / (directory + 'init'),
+
+@ex.capture
 def get_pruned_model_paths(model_dir_path, dataset_name, network_type, num_iters):
     directory = f'{dataset_name}-{network_type}-'
     return [model_dir_path / (directory + f'iter{i+1}') for i in range(num_iters)]
@@ -358,8 +363,11 @@ def run(network_type, batch_size, epochs, pruning_epochs,
     
     unpruned_model_path, _ = get_two_model_paths()
     pruned_model_paths = get_pruned_model_paths()
+    init_model_path = get_init_model_path()
 
     unpruned_model = create_model()
+
+    save_weights(unpruned_model, init_model_path)
 
     _log.info('Training unpruned model...')
     metrics['unpruned'] = train_model(unpruned_model, X_train, y_train, X_test, y_test, 
