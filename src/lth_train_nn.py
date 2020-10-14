@@ -26,7 +26,7 @@ ex.observers.append(sacred
 
 
 def generate_training_tag(network_type, epochs, dataset_name, dropout):
-    base_tag = f"{dataset_name}_{network_type}_{epochs}epochs"
+    base_tag = f"lth_{dataset_name}_{network_type}_{epochs}epochs"
     if dropout:
         base_tag += "_dropout"
     return base_tag
@@ -368,6 +368,8 @@ def run(network_type, batch_size, epochs, pruning_epochs,
     _log.info('Unpruned model sparsity: {}'.format(get_sparsity(unpruned_model)))
     save_weights(unpruned_model, unpruned_model_path)
 
+    begin_step = np.ceil(X_train.shape[0] / batch_size).astype(np.int32) * (pruning_epochs - 1)
+
     for i in range(num_iters):
         pruned_model_path = pruned_model_paths[i]
 
@@ -375,7 +377,8 @@ def run(network_type, batch_size, epochs, pruning_epochs,
 
         pruning_params = get_pruning_params(X_train.shape[0],
                                             initial_sparsity=sparsity_ratio / 2.0,
-                                            final_sparsity=sparsity_ratio) 
+                                            final_sparsity=sparsity_ratio,
+                                            begin_step=begin_step) 
         pruned_model = sparsity.prune_low_magnitude(unpruned_model, **pruning_params)
         
         pruning_callbacks = [
